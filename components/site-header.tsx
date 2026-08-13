@@ -58,7 +58,7 @@ export function SiteHeader() {
         <span className="sr-only">Site utility bar</span>
         <span aria-hidden="true" />
         <span>
-          Presented by <span className="font-medium text-foreground">Pitchside Insurance</span>
+          Presented by <span className="font-medium text-foreground">RyeBread</span>
         </span>
       </div>
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
