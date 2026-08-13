@@ -152,6 +152,15 @@
       transparent 64px
     );
   }
+  .stadium-band {
+    background-image: repeating-linear-gradient(
+      115deg,
+      color-mix(in oklab, var(--primary) 12%, transparent) 0px,
+      color-mix(in oklab, var(--primary) 12%, transparent) 40px,
+      transparent 40px,
+      transparent 80px
+    );
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
