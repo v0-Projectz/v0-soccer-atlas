@@ -54,7 +54,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${sourceSerif.variable} ${inter.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${sourceSerif.variable} ${inter.variable} bg-background`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <body className="bg-background text-foreground antialiased font-sans">
         <ThemeProvider>
           <TooltipProvider delayDuration={150}>{children}</TooltipProvider>

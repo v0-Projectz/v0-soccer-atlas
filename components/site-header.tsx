@@ -87,6 +87,7 @@ export function SiteHeader() {
                 {navItems.map((item) => (
                   <SheetClose
                     key={item.href}
+                    nativeButton={false}
                     render={
                       <Link
                         href={item.href}
