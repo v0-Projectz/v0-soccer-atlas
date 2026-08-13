@@ -18,23 +18,24 @@ export function AuthLayout({ children }: { children: ReactNode }) {
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/85 to-background/40" />
       </div>
 
-      <Button
-        variant="ghost"
-        size="icon-sm"
-        aria-label="Close and return to the site"
-        className="absolute right-4 top-4 z-10 text-foreground hover:bg-secondary/70 sm:right-6 sm:top-6"
-        render={<Link href="/" />}
-        nativeButton={false}
-      >
-        <X />
-      </Button>
-
       <div className="relative flex flex-1 flex-col items-center justify-center gap-8 px-4 py-16">
         <Link href="/" className="flex items-center gap-2">
           <Network className="size-5 text-gold" strokeWidth={1.75} />
           <span className="font-serif text-lg font-semibold tracking-tight text-foreground">Soccer Atlas</span>
         </Link>
-        <div className="w-full max-w-sm">{children}</div>
+        <div className="relative w-full max-w-sm">
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            aria-label="Close and return to the site"
+            className="absolute -top-3 -right-3 z-10 rounded-full border border-border/60 bg-card text-foreground hover:bg-secondary/70"
+            render={<Link href="/" />}
+            nativeButton={false}
+          >
+            <X />
+          </Button>
+          {children}
+        </div>
       </div>
     </div>
   )
