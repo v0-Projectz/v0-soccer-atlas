@@ -28,18 +28,15 @@ export function HomeHero() {
         Understand the World of Soccer
       </h1>
       <p className="text-pretty max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-        Explore leagues, cups, tournaments, qualification paths, and promotion/relegation systems \u2014 and see how
-        they all connect.
+        {"Explore leagues, cups, tournaments, qualification paths, and promotion/relegation systems \u2014 and see how they all connect."}
       </p>
       <div className="flex flex-col gap-3 sm:flex-row">
-        <Button size="lg" asChild>
-          <a href="#atlas">
-            Explore the Atlas
-            <ArrowRight data-icon="inline-end" />
-          </a>
+        <Button size="lg" render={<a href="#atlas" />} nativeButton={false}>
+          Explore the Atlas
+          <ArrowRight data-icon="inline-end" />
         </Button>
-        <Button size="lg" variant="outline" asChild>
-          <Link href="/pathways">How Does Soccer Work?</Link>
+        <Button size="lg" variant="outline" render={<Link href="/pathways" />} nativeButton={false}>
+          How Does Soccer Work?
         </Button>
       </div>
 

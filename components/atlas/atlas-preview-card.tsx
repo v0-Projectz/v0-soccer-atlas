@@ -47,11 +47,15 @@ export function AtlasPreviewCard() {
       </div>
       <p className="text-sm leading-relaxed text-muted-foreground">{competition.summary}</p>
       <div className="mt-auto pt-1">
-        <Button asChild size="sm" variant="ghost" className="px-0 text-primary hover:text-primary">
-          <Link href={`/competitions/${competition.slug}`}>
-            Explore
-            <ArrowRight data-icon="inline-end" />
-          </Link>
+        <Button
+          size="sm"
+          variant="ghost"
+          className="px-0 text-primary hover:text-primary"
+          render={<Link href={`/competitions/${competition.slug}`} />}
+          nativeButton={false}
+        >
+          Explore
+          <ArrowRight data-icon="inline-end" />
         </Button>
       </div>
     </div>

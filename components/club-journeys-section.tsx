@@ -9,8 +9,7 @@ export function ClubJourneysSection() {
           Club Journeys
         </h2>
         <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          See how a real club moves through the system \u2014 solid lines mark confirmed history, the highlighted
-          marker shows where they stand today, and dashed lines mark a possible future, never a certainty.
+          {"See how a real club moves through the system \u2014 solid lines mark confirmed history, the highlighted marker shows where they stand today, and dashed lines mark a possible future, never a certainty."}
         </p>
       </div>
       <div className="flex gap-4 overflow-x-auto pb-2" style={{ scrollSnapType: 'x proximity' }}>
