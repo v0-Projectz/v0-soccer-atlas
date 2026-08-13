@@ -1,6 +1,6 @@
 'use client'
 
-import { AtlasProvider, useAtlas } from '@/components/atlas/atlas-context'
+import { useAtlas } from '@/components/atlas/atlas-context'
 import { AtlasConnections } from '@/components/atlas/atlas-connections'
 import { AtlasNode } from '@/components/atlas/atlas-node'
 import { AtlasPreviewCard } from '@/components/atlas/atlas-preview-card'
@@ -8,7 +8,7 @@ import { atlasTiers } from '@/lib/atlas-layout'
 import { getCompetition } from '@/lib/data/competitions'
 import { cn } from '@/lib/utils'
 
-function AtlasCanvas() {
+export function AtlasNetwork() {
   const { containerRef, setPinnedSlug, pinnedSlug } = useAtlas()
 
   return (
@@ -70,13 +70,5 @@ function AtlasCanvas() {
         )}
       </div>
     </div>
-  )
-}
-
-export function AtlasNetwork() {
-  return (
-    <AtlasProvider>
-      <AtlasCanvas />
-    </AtlasProvider>
   )
 }

@@ -66,6 +66,8 @@ export interface ClubJourneyStep {
   label: string
   detail: string
   status: 'historical' | 'current' | 'potential'
+  /** Slugs of Atlas competitions this step corresponds to, for cross-linking with the Atlas. */
+  competitionSlugs?: string[]
 }
 
 export interface ClubJourney {
