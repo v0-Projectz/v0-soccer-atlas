@@ -4,6 +4,7 @@ import { confederationLabels } from "@/lib/competition-visuals"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { CompetitionCard } from "@/components/competition/competition-card"
+import { PageHero } from "@/components/page-hero"
 
 export const metadata: Metadata = {
   title: "Competitions — Soccer Atlas",
@@ -23,16 +24,15 @@ export default function CompetitionsPage() {
     <div className="flex min-h-svh flex-col">
       <SiteHeader />
       <main className="flex-1">
+        <PageHero
+          image="/images/hero-competitions.png"
+          imageAlt="A gleaming gold trophy under a spotlight on a dark, empty pitch"
+          kicker="Every Trophy, Every Tier"
+          title="All Competitions"
+          description="Every competition in the Atlas, organized by tier — from the global stage down to the domestic leagues and cups that feed it."
+        />
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 md:py-14">
-          <div className="flex flex-col gap-2">
-            <h1 className="font-serif text-3xl font-semibold text-foreground sm:text-4xl">All Competitions</h1>
-            <p className="max-w-2xl text-pretty leading-relaxed text-muted-foreground">
-              Every competition in the Atlas, organized by tier — from the global stage down to the domestic
-              leagues and cups that feed it.
-            </p>
-          </div>
-
-          <div className="mt-10 flex flex-col gap-12">
+          <div className="flex flex-col gap-12">
             {tiers.map((tier) => {
               const items = competitions.filter((c) => c.tier === tier)
               if (items.length === 0) return null

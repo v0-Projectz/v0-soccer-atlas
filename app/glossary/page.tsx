@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { GlossaryBrowser } from "@/components/glossary/glossary-browser"
+import { PageHero } from "@/components/page-hero"
 
 export const metadata: Metadata = {
   title: "Glossary — Soccer Atlas",
@@ -13,21 +14,15 @@ export default function GlossaryPage() {
     <div className="flex min-h-svh flex-col">
       <SiteHeader />
       <main className="flex-1">
+        <PageHero
+          image="/images/hero-glossary.png"
+          imageAlt="A soccer ball resting on the center circle line of a dark, dewy pitch"
+          kicker="Terms Worth Knowing"
+          title="Terms Worth Knowing"
+          description="The words commentators use without explaining. Each one includes why it actually matters, not just a dictionary definition."
+        />
         <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 md:py-14">
-          <div className="flex flex-col gap-2">
-            <span className="text-xs font-semibold uppercase tracking-widest text-primary">Glossary</span>
-            <h1 className="font-serif text-3xl font-semibold text-foreground sm:text-4xl">
-              Terms worth knowing
-            </h1>
-            <p className="max-w-2xl text-pretty leading-relaxed text-muted-foreground">
-              The words commentators use without explaining. Each one includes why it actually matters, not
-              just a dictionary definition.
-            </p>
-          </div>
-
-          <div className="mt-10">
-            <GlossaryBrowser />
-          </div>
+          <GlossaryBrowser />
         </div>
       </main>
       <SiteFooter />

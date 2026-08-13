@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { Menu, Search, Network } from 'lucide-react'
+import { usePathname, useRouter } from 'next/navigation'
+import { Menu, Search, Network, User } from 'lucide-react'
+import type { User as SupabaseUser } from '@supabase/supabase-js'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { SearchCommand } from '@/components/search-command'
+import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils'
 
 const navItems = [
@@ -19,7 +21,9 @@ const navItems = [
 
 export function SiteHeader() {
   const pathname = usePathname()
+  const router = useRouter()
   const [searchOpen, setSearchOpen] = useState(false)
+  const [user, setUser] = useState<SupabaseUser | null>(null)
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -31,6 +35,22 @@ export function SiteHeader() {
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
+
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data }) => setUser(data.user ?? null))
+    const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+    return () => subscription.subscription.unsubscribe()
+  }, [])
+
+  const handleSignOut = async () => {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push('/')
+    router.refresh()
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-sm">
@@ -71,15 +91,44 @@ export function SiteHeader() {
             <Search />
           </Button>
           <ThemeToggle />
-          <Button
-            variant="outline"
-            size="sm"
-            className="hidden border-gold/50 text-xs font-medium uppercase tracking-[0.1em] text-gold hover:bg-gold hover:text-gold-foreground sm:inline-flex"
-            render={<Link href="/pathways" />}
-            nativeButton={false}
-          >
-            Start Exploring
-          </Button>
+          {user ? (
+            <div className="hidden items-center gap-1.5 sm:flex">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-gold/50 text-xs font-medium uppercase tracking-[0.1em] text-gold hover:bg-gold hover:text-gold-foreground"
+                render={<Link href="/account" />}
+                nativeButton={false}
+              >
+                <User />
+                Account
+              </Button>
+              <Button variant="ghost" size="sm" className="text-xs font-medium uppercase tracking-[0.1em]" onClick={handleSignOut}>
+                Sign Out
+              </Button>
+            </div>
+          ) : (
+            <div className="hidden items-center gap-1.5 sm:flex">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-xs font-medium uppercase tracking-[0.1em]"
+                render={<Link href="/auth/login" />}
+                nativeButton={false}
+              >
+                Sign In
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-gold/50 text-xs font-medium uppercase tracking-[0.1em] text-gold hover:bg-gold hover:text-gold-foreground"
+                render={<Link href="/auth/sign-up" />}
+                nativeButton={false}
+              >
+                Sign Up
+              </Button>
+            </div>
+          )}
           <Sheet>
             <SheetTrigger
               render={
@@ -113,6 +162,60 @@ export function SiteHeader() {
                   />
                 ))}
               </nav>
+              <div className="mt-4 flex flex-col gap-1 border-t border-border/60 px-4 pt-4">
+                {user ? (
+                  <>
+                    <SheetClose
+                      nativeButton={false}
+                      render={
+                        <Link
+                          href="/account"
+                          className="rounded-lg px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary/70"
+                        >
+                          Account
+                        </Link>
+                      }
+                    />
+                    <SheetClose
+                      nativeButton={false}
+                      render={
+                        <button
+                          type="button"
+                          onClick={handleSignOut}
+                          className="rounded-lg px-3 py-2.5 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary/70 hover:text-foreground"
+                        >
+                          Sign Out
+                        </button>
+                      }
+                    />
+                  </>
+                ) : (
+                  <>
+                    <SheetClose
+                      nativeButton={false}
+                      render={
+                        <Link
+                          href="/auth/login"
+                          className="rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary/70 hover:text-foreground"
+                        >
+                          Sign In
+                        </Link>
+                      }
+                    />
+                    <SheetClose
+                      nativeButton={false}
+                      render={
+                        <Link
+                          href="/auth/sign-up"
+                          className="rounded-lg px-3 py-2.5 text-sm font-medium text-gold transition-colors hover:bg-secondary/70"
+                        >
+                          Sign Up
+                        </Link>
+                      }
+                    />
+                  </>
+                )}
+              </div>
             </SheetContent>
           </Sheet>
         </div>
