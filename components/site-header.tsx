@@ -41,7 +41,6 @@ export function SiteHeader() {
           Presented by <span className="font-medium text-foreground">Pitchside Insurance</span>
         </span>
       </div>
-      <div className="stadium-band bg-secondary/25">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <Network className="size-5 text-gold" strokeWidth={1.75} />
@@ -117,7 +116,6 @@ export function SiteHeader() {
             </SheetContent>
           </Sheet>
         </div>
-      </div>
       </div>
       <SearchCommand open={searchOpen} onOpenChange={setSearchOpen} />
     </header>
