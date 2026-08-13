@@ -1,0 +1,113 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { Menu, Search, Network } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet'
+import { ThemeToggle } from '@/components/theme-toggle'
+import { SearchCommand } from '@/components/search-command'
+import { cn } from '@/lib/utils'
+
+const navItems = [
+  { href: '/', label: 'Atlas' },
+  { href: '/competitions', label: 'Competitions' },
+  { href: '/pathways', label: 'Pathways' },
+  { href: '/glossary', label: 'Glossary' },
+]
+
+export function SiteHeader() {
+  const pathname = usePathname()
+  const [searchOpen, setSearchOpen] = useState(false)
+
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault()
+        setSearchOpen((v) => !v)
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-sm">
+      <div className="flex items-center justify-between gap-2 border-b border-border/60 px-4 py-1 text-[11px] text-muted-foreground sm:px-6">
+        <span className="sr-only">Site utility bar</span>
+        <span aria-hidden="true" />
+        <span>
+          Presented by <span className="font-medium text-foreground">Pitchside Insurance</span>
+        </span>
+      </div>
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+        <Link href="/" className="flex items-center gap-2 shrink-0">
+          <Network className="size-5 text-primary" strokeWidth={1.75} />
+          <span className="font-serif text-lg font-semibold tracking-tight text-foreground">Soccer Atlas</span>
+        </Link>
+
+        <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
+          {navItems.map((item) => {
+            const isActive = pathname === item.href
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  'rounded-lg px-3 py-1.5 text-sm font-medium transition-colors',
+                  isActive ? 'bg-secondary text-foreground' : 'text-muted-foreground hover:bg-secondary/70 hover:text-foreground',
+                )}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {item.label}
+              </Link>
+            )
+          })}
+        </nav>
+
+        <div className="flex items-center gap-1.5">
+          <Button variant="ghost" size="icon-sm" aria-label="Search the Atlas" onClick={() => setSearchOpen(true)}>
+            <Search />
+          </Button>
+          <ThemeToggle />
+          <Sheet>
+            <SheetTrigger
+              render={
+                <Button variant="ghost" size="icon-sm" className="md:hidden" aria-label="Open menu">
+                  <Menu />
+                </Button>
+              }
+            />
+            <SheetContent side="right" className="w-72">
+              <SheetHeader>
+                <SheetTitle>Menu</SheetTitle>
+              </SheetHeader>
+              <nav className="flex flex-col gap-1 px-4" aria-label="Mobile primary">
+                {navItems.map((item) => (
+                  <SheetClose
+                    key={item.href}
+                    render={
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          'rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
+                          pathname === item.href
+                            ? 'bg-secondary text-foreground'
+                            : 'text-muted-foreground hover:bg-secondary/70 hover:text-foreground',
+                        )}
+                      >
+                        {item.label}
+                      </Link>
+                    }
+                  />
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+      <SearchCommand open={searchOpen} onOpenChange={setSearchOpen} />
+    </header>
+  )
+}
