@@ -3,11 +3,11 @@ import { Network } from 'lucide-react'
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-card/40">
-      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-10 sm:px-6 md:flex-row md:justify-between">
+    <footer className="border-t border-border bg-background">
+      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-12 sm:px-6 md:flex-row md:justify-between">
         <div className="flex max-w-sm flex-col gap-3">
           <Link href="/" className="flex items-center gap-2">
-            <Network className="size-4 text-primary" strokeWidth={1.75} />
+            <Network className="size-4 text-gold" strokeWidth={1.75} />
             <span className="font-serif text-base font-semibold text-foreground">Soccer Atlas</span>
           </Link>
           <p className="text-sm leading-relaxed text-muted-foreground">
@@ -17,23 +17,23 @@ export function SiteFooter() {
         </div>
         <div className="flex flex-wrap gap-8 text-sm">
           <div className="flex flex-col gap-2">
-            <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Explore</span>
-            <Link href="/competitions" className="text-muted-foreground hover:text-foreground">
+            <span className="text-xs font-semibold uppercase tracking-[0.15em] text-gold">Explore</span>
+            <Link href="/competitions" className="text-muted-foreground transition-colors hover:text-foreground">
               Competitions
             </Link>
-            <Link href="/pathways" className="text-muted-foreground hover:text-foreground">
+            <Link href="/pathways" className="text-muted-foreground transition-colors hover:text-foreground">
               Pathways
             </Link>
-            <Link href="/glossary" className="text-muted-foreground hover:text-foreground">
+            <Link href="/glossary" className="text-muted-foreground transition-colors hover:text-foreground">
               Glossary
             </Link>
           </div>
           <div className="flex flex-col gap-2">
-            <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">About</span>
-            <Link href="/about" className="text-muted-foreground hover:text-foreground">
+            <span className="text-xs font-semibold uppercase tracking-[0.15em] text-gold">About</span>
+            <Link href="/about" className="text-muted-foreground transition-colors hover:text-foreground">
               About Soccer Atlas
             </Link>
-            <Link href="/about#sources" className="text-muted-foreground hover:text-foreground">
+            <Link href="/about#sources" className="text-muted-foreground transition-colors hover:text-foreground">
               Sources
             </Link>
           </div>

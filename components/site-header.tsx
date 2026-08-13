@@ -43,7 +43,7 @@ export function SiteHeader() {
       </div>
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <Link href="/" className="flex items-center gap-2 shrink-0">
-          <Network className="size-5 text-primary" strokeWidth={1.75} />
+          <Network className="size-5 text-gold" strokeWidth={1.75} />
           <span className="font-serif text-lg font-semibold tracking-tight text-foreground">Soccer Atlas</span>
         </Link>
 
@@ -55,8 +55,8 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'rounded-lg px-3 py-1.5 text-sm font-medium transition-colors',
-                  isActive ? 'bg-secondary text-foreground' : 'text-muted-foreground hover:bg-secondary/70 hover:text-foreground',
+                  'rounded-lg px-3 py-1.5 text-xs font-medium uppercase tracking-[0.15em] transition-colors',
+                  isActive ? 'text-gold' : 'text-muted-foreground hover:text-foreground',
                 )}
                 aria-current={isActive ? 'page' : undefined}
               >
@@ -71,6 +71,15 @@ export function SiteHeader() {
             <Search />
           </Button>
           <ThemeToggle />
+          <Button
+            variant="outline"
+            size="sm"
+            className="hidden border-gold/50 text-xs font-medium uppercase tracking-[0.1em] text-gold hover:bg-gold hover:text-gold-foreground sm:inline-flex"
+            render={<Link href="/pathways" />}
+            nativeButton={false}
+          >
+            Start Exploring
+          </Button>
           <Sheet>
             <SheetTrigger
               render={
