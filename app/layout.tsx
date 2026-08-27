@@ -1,25 +1,10 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Source_Serif_4, Inter } from 'next/font/google'
-import { TooltipProvider } from '@/components/ui/tooltip'
-import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
-const sourceSerif = Source_Serif_4({
-  subsets: ['latin'],
-  variable: '--font-serif',
-  weight: ['400', '500', '600', '700'],
-})
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans',
-})
-
 export const metadata: Metadata = {
-  title: 'Soccer Atlas — Understand the World of Soccer',
-  description:
-    'An interactive atlas that helps new and curious soccer fans understand how leagues, cups, confederations, and national teams connect.',
+  title: 'v0 App',
+  description: 'Created with v0',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -43,8 +28,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   colorScheme: 'light dark',
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#FAF8F4' },
-    { media: '(prefers-color-scheme: dark)', color: '#0B0F0E' },
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
   ],
 }
 
@@ -54,11 +39,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${sourceSerif.variable} ${inter.variable}`} suppressHydrationWarning>
-      <body className="bg-background text-foreground antialiased font-sans">
-        <ThemeProvider>
-          <TooltipProvider delayDuration={150}>{children}</TooltipProvider>
-        </ThemeProvider>
+    <html lang="en">
+      <body className="antialiased">
+        {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
